@@ -7,7 +7,7 @@ namespace Librafka.MathLib {
   /// 任意の形を取ることのできる複素行列のクラス．
   /// </summary>
   public class Matrix {
-    Complex[] e;
+    private readonly Complex[] _e;
 
     /// <summary>
     /// 行の長さを取得する．
@@ -34,8 +34,8 @@ namespace Librafka.MathLib {
       RowLength = r;
       ColumnLength = c;
       N = r * c;
-      e = new Complex[N];
-      for (int i = 0; i < e.Length; i++) e[i] = Complex.Zero;
+      _e = new Complex[N];
+      for (var i = 0; i < _e.Length; i++) _e[i] = Complex.Zero;
     }
 
     /// <summary>
@@ -50,13 +50,15 @@ namespace Librafka.MathLib {
     /// </summary>
     /// <param name="elements">行列を構成する要素の1次元配列．</param>
     public Matrix(Complex[] elements) {
-      if (elements == null) throw new ArgumentNullException("elements", "要素が必要です．");
+      if (elements == null) throw new ArgumentNullException(nameof(elements), "要素が必要です．");
 
       RowLength = (int)Math.Sqrt(elements.Length);
       ColumnLength = RowLength + ((RowLength * RowLength == elements.Length) ? 0 : 1);
-      e = new Complex[RowLength * ColumnLength];
-      for (int i = 0; i < elements.Length; i++) e[i] = elements[i];
-      if (elements.Length < e.Length) for (int i = elements.Length; i < e.Length; i++) e[i] = Complex.Zero;
+      _e = new Complex[RowLength * ColumnLength];
+      for (var i = 0; i < elements.Length; i++) _e[i] = elements[i];
+      if (elements.Length < _e.Length)
+        for (var i = elements.Length; i < _e.Length; i++)
+          _e[i] = Complex.Zero;
       N = RowLength * ColumnLength;
     }
 
@@ -70,12 +72,14 @@ namespace Librafka.MathLib {
     /// </summary>
     /// <param name="elements">行列を構成する要素の2次元配列．</param>
     public Matrix(Complex[,] elements) {
-      if (elements == null) throw new ArgumentNullException("elements", "要素が必要です．");
+      if (elements == null) throw new ArgumentNullException(nameof(elements), "要素が必要です．");
 
       RowLength = elements.GetLength(0);
       ColumnLength = elements.GetLength(1);
-      e = new Complex[RowLength * ColumnLength];
-      for (int i = 0; i < elements.GetLength(0); i++) for (int j = 0; j < elements.GetLength(1); j++) e[i * ColumnLength + j] = elements[i, j];
+      _e = new Complex[RowLength * ColumnLength];
+      for (var i = 0; i < elements.GetLength(0); i++)
+        for (var j = 0; j < elements.GetLength(1); j++)
+          _e[i * ColumnLength + j] = elements[i, j];
       N = RowLength * ColumnLength;
     }
 
@@ -91,14 +95,16 @@ namespace Librafka.MathLib {
     /// <param name="row">行のサイズ．</param>
     /// <param name="column">列のサイズ．</param>
     public Matrix(Complex[] elements, int row, int column) {
-      if (elements == null) throw new ArgumentNullException("elements", "要素が必要です．");
+      if (elements == null) throw new ArgumentNullException(nameof(elements), "要素が必要です．");
 
       RowLength = row;
       ColumnLength = column;
-      e = new Complex[row * column];
-      var n = e.Length < elements.Length ? e.Length : elements.Length;
-      for (int i = 0; i < n; i++) e[i] = elements[i];
-      if (e.Length > elements.Length) for (int i = elements.Length; i < e.Length; i++) e[i] = Complex.Zero;
+      _e = new Complex[row * column];
+      var n = _e.Length < elements.Length ? _e.Length : elements.Length;
+      for (var i = 0; i < n; i++) _e[i] = elements[i];
+      if (_e.Length > elements.Length)
+        for (var i = elements.Length; i < _e.Length; i++)
+          _e[i] = Complex.Zero;
       N = RowLength * ColumnLength;
     }
 
@@ -106,11 +112,7 @@ namespace Librafka.MathLib {
     /// 行列を複製します．
     /// </summary>
     /// <value>要素や行の長さ，列の長さが全く同じな別のインスタンス．</value>
-    public Matrix Clone {
-      get {
-        return new Matrix(e, RowLength, ColumnLength);
-      }
-    }
+    public Matrix Clone => new Matrix(_e, RowLength, ColumnLength);
 
     /// <summary>
     /// 行列の要素を取得したり書き換えたりできる．
@@ -119,35 +121,43 @@ namespace Librafka.MathLib {
     /// <param name="j">列番号．</param>
     public Complex this[int i, int j] {
       get {
-        if (0 <= i && i <= RowLength && 0 <= j && j <= ColumnLength) return e[i * ColumnLength + j];
-        else throw new ArgumentException("領域外参照です．");
+        if (0 <= i && i <= RowLength && 0 <= j && j <= ColumnLength) return _e[i * ColumnLength + j];
+        throw new ArgumentException("領域外参照です．");
       }
       set {
-        if (0 <= i && i <= RowLength && 0 <= j && j <= ColumnLength) e[i * ColumnLength + j] = value;
+        if (0 <= i && i <= RowLength && 0 <= j && j <= ColumnLength) _e[i * ColumnLength + j] = value;
         else throw new ArgumentException("領域外参照です．");
       }
     }
 
     public static Matrix operator -(Matrix m) {
       var res = m.Clone;
-      for (int i = 0; i < res.RowLength; i++) for (int j = 0; j < res.ColumnLength; j++) res[i, j] = -m[i, j];
+      for (var i = 0; i < res.RowLength; i++)
+        for (var j = 0; j < res.ColumnLength; j++)
+          res[i, j] = -m[i, j];
       return res;
     }
     public static Matrix operator +(Matrix m1, Matrix m2) {
       if (m1.RowLength != m2.RowLength || m1.ColumnLength != m2.ColumnLength) throw new ArgumentException("行列の形が異なっています．");
       var res = new Matrix(m1.RowLength, m1.ColumnLength);
-      for (int i = 0; i < res.RowLength; i++) for (int j = 0; j < res.ColumnLength; j++) res[i, j] = m1[i, j] + m2[i, j];
+      for (var i = 0; i < res.RowLength; i++) 
+        for (var j = 0; j < res.ColumnLength; j++)
+          res[i, j] = m1[i, j] + m2[i, j];
       return res;
     }
     public static Matrix operator -(Matrix m1, Matrix m2) {
       if (m1.RowLength != m2.RowLength || m1.ColumnLength != m2.ColumnLength) throw new ArgumentException("行列の形が異なっています．");
       var res = new Matrix(m1.RowLength, m1.ColumnLength);
-      for (int i = 0; i < res.RowLength; i++) for (int j = 0; j < res.ColumnLength; j++) res[i, j] = m1[i, j] - m2[i, j];
+      for (var i = 0; i < res.RowLength; i++)
+        for (var j = 0; j < res.ColumnLength; j++)
+          res[i, j] = m1[i, j] - m2[i, j];
       return res;
     }
     public static Matrix operator *(Complex k, Matrix m) {
       var res = m.Clone;
-      for (int i = 0; i < res.RowLength; i++) for (int j = 0; j < res.ColumnLength; j++) res[i, j] = k * m[i, j];
+      for (var i = 0; i < res.RowLength; i++)
+        for (var j = 0; j < res.ColumnLength; j++)
+          res[i, j] = k * m[i, j];
       return res;
     }
     public static Matrix operator *(Matrix m, Complex k) {
@@ -156,12 +166,18 @@ namespace Librafka.MathLib {
     public static Matrix operator *(Matrix m1, Matrix m2) {
       if (m1.ColumnLength != m2.RowLength) throw new ArgumentException("計算対象の行列の形が不適切です．");
       var res = new Matrix(m1.RowLength, m2.ColumnLength);
-      for (int i = 0; i < res.RowLength; i++) for (int k = 0; k < m1.ColumnLength; k++) for (int j = 0; j < res.ColumnLength; j++) res[i, j] += m1[i, k] * m2[k, j];
+      for (var i = 0; i < res.RowLength; i++)
+        for (var k = 0; k < m1.ColumnLength; k++)
+          for (var j = 0; j < res.ColumnLength; j++)
+            res[i, j] += m1[i, k] * m2[k, j];
       return res;
     }
     public static Matrix operator /(Matrix m, Complex k) {
-      for (int i = 0; i < RowLength; i++) for (int j = 0; j < ColumnLength; j++) this[i, j] /= k;
-      return this;
+      var res = new Matrix(m.RowLength, m.ColumnLength);
+      for (var i = 0; i < m.RowLength; i++)
+        for (var j = 0; j < m.ColumnLength; j++)
+          res[i, j] = m[i, j] / k;
+      return res;
     }
 
     /// <summary>
@@ -174,8 +190,8 @@ namespace Librafka.MathLib {
       var sb = new StringBuilder();
       sb.Clear();
 
-      for (int i = 0; i < RowLength; sb.Append(++i < RowLength ? "\n" : "")) 
-        for (int j = 0; j < ColumnLength; sb.Append(++j < ColumnLength ? "\t" : "")) 
+      for (var i = 0; i < RowLength; sb.Append(++i < RowLength ? "\n" : "")) 
+        for (var j = 0; j < ColumnLength; sb.Append(++j < ColumnLength ? "\t" : "")) 
           sb.Append(this[i, j].ToString(format, null));
       
       return sb.ToString();
@@ -197,7 +213,9 @@ namespace Librafka.MathLib {
     public Matrix Transpose {
       get {
         var res = new Matrix(ColumnLength, RowLength);
-        for (int i = 0; i < RowLength; i++) for (int j = 0; j < ColumnLength; j++) res[j, i] = this[i, j];
+        for (var i = 0; i < RowLength; i++)
+          for (var j = 0; j < ColumnLength; j++)
+            res[j, i] = this[i, j];
         return res;
       }
     }
@@ -209,11 +227,12 @@ namespace Librafka.MathLib {
     public Matrix Transjugate {
       get {
         // Analysis disable once NotResolvedInText
-        if (isEmpty()) throw new ArgumentNullException("行列要素がありません．");
+        if (IsEmpty()) throw new ArgumentNullException("行列素がありません．");
         var res = new Matrix(ColumnLength, RowLength);
-        for (int i = 0; i < RowLength; i++) for (int j = 0; j < ColumnLength; j++) {
-            res[j, i].Real = this[i, j].Real; 
-            res[j, i].Imaginary = -this[i, j].Imaginary;
+        for (var i = 0; i < RowLength; i++)
+          for (var j = 0; j < ColumnLength; j++) {
+            var elem = _e[i * ColumnLength + j];
+            res[j, i] = new Complex(elem.Real, -elem.Imaginary);
           }
         return res;
       }
@@ -223,8 +242,8 @@ namespace Librafka.MathLib {
     /// 行列要素があるかどうかを調べる．
     /// </summary>
     /// <returns></returns>
-    public bool isEmpty() {
-      return e == null;
+    public bool IsEmpty() {
+      return _e == null;
     }
 
     /// <summary>
