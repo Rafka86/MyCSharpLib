@@ -36,11 +36,13 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MathLib\Converter.cs" />
     <Compile Include="MathLib\Expression.cs" />
+    <Compile Include="MathLib\Matrix.cs" />
     <Compile Include="MathLib\Token.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
