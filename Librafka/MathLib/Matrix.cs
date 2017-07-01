@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Numerics;
 using System.Text;
+using System.Xml;
 
 namespace Librafka.MathLib {
   /// <summary>
   /// 任意の形を取ることのできる複素行列のクラス．
   /// </summary>
   public class Matrix {
-    private readonly Complex[] _e;
+    internal readonly Complex[] E;
 
     /// <summary>
     /// 行の長さを取得する．
@@ -34,8 +35,8 @@ namespace Librafka.MathLib {
       RowLength = r;
       ColumnLength = c;
       N = r * c;
-      _e = new Complex[N];
-      for (var i = 0; i < _e.Length; i++) _e[i] = Complex.Zero;
+      E = new Complex[N];
+      for (var i = 0; i < E.Length; i++) E[i] = Complex.Zero;
     }
 
     /// <summary>
@@ -54,11 +55,11 @@ namespace Librafka.MathLib {
 
       RowLength = (int)Math.Sqrt(elements.Length);
       ColumnLength = RowLength + ((RowLength * RowLength == elements.Length) ? 0 : 1);
-      _e = new Complex[RowLength * ColumnLength];
-      for (var i = 0; i < elements.Length; i++) _e[i] = elements[i];
-      if (elements.Length < _e.Length)
-        for (var i = elements.Length; i < _e.Length; i++)
-          _e[i] = Complex.Zero;
+      E = new Complex[RowLength * ColumnLength];
+      for (var i = 0; i < elements.Length; i++) E[i] = elements[i];
+      if (elements.Length < E.Length)
+        for (var i = elements.Length; i < E.Length; i++)
+          E[i] = Complex.Zero;
       N = RowLength * ColumnLength;
     }
 
@@ -76,10 +77,10 @@ namespace Librafka.MathLib {
 
       RowLength = elements.GetLength(0);
       ColumnLength = elements.GetLength(1);
-      _e = new Complex[RowLength * ColumnLength];
+      E = new Complex[RowLength * ColumnLength];
       for (var i = 0; i < elements.GetLength(0); i++)
         for (var j = 0; j < elements.GetLength(1); j++)
-          _e[i * ColumnLength + j] = elements[i, j];
+          E[i * ColumnLength + j] = elements[i, j];
       N = RowLength * ColumnLength;
     }
 
@@ -99,12 +100,12 @@ namespace Librafka.MathLib {
 
       RowLength = row;
       ColumnLength = column;
-      _e = new Complex[row * column];
-      var n = _e.Length < elements.Length ? _e.Length : elements.Length;
-      for (var i = 0; i < n; i++) _e[i] = elements[i];
-      if (_e.Length > elements.Length)
-        for (var i = elements.Length; i < _e.Length; i++)
-          _e[i] = Complex.Zero;
+      E = new Complex[row * column];
+      var n = E.Length < elements.Length ? E.Length : elements.Length;
+      for (var i = 0; i < n; i++) E[i] = elements[i];
+      if (E.Length > elements.Length)
+        for (var i = elements.Length; i < E.Length; i++)
+          E[i] = Complex.Zero;
       N = RowLength * ColumnLength;
     }
 
@@ -112,20 +113,20 @@ namespace Librafka.MathLib {
     /// 行列を複製します．
     /// </summary>
     /// <value>要素や行の長さ，列の長さが全く同じな別のインスタンス．</value>
-    public Matrix Clone => new Matrix(_e, RowLength, ColumnLength);
+    public Matrix Clone => new Matrix(E, RowLength, ColumnLength);
 
     /// <summary>
-    /// 行列の要素を取得したり書き換えたりできる．
+    /// 行列のインデクサ．
     /// </summary>
     /// <param name="i">行番号．</param>
     /// <param name="j">列番号．</param>
     public Complex this[int i, int j] {
       get {
-        if (0 <= i && i <= RowLength && 0 <= j && j <= ColumnLength) return _e[i * ColumnLength + j];
+        if (0 <= i && i <= RowLength && 0 <= j && j <= ColumnLength) return E[i * ColumnLength + j];
         throw new ArgumentException("領域外参照です．");
       }
       set {
-        if (0 <= i && i <= RowLength && 0 <= j && j <= ColumnLength) _e[i * ColumnLength + j] = value;
+        if (0 <= i && i <= RowLength && 0 <= j && j <= ColumnLength) E[i * ColumnLength + j] = value;
         else throw new ArgumentException("領域外参照です．");
       }
     }
@@ -227,11 +228,11 @@ namespace Librafka.MathLib {
     public Matrix Transjugate {
       get {
         // Analysis disable once NotResolvedInText
-        if (IsEmpty()) throw new ArgumentNullException("行列素がありません．");
+        if (IsEmpty()) throw new ArgumentNullException(nameof(Matrix), "行列素がありません．");
         var res = new Matrix(ColumnLength, RowLength);
         for (var i = 0; i < RowLength; i++)
           for (var j = 0; j < ColumnLength; j++) {
-            var elem = _e[i * ColumnLength + j];
+            var elem = E[i * ColumnLength + j];
             res[j, i] = new Complex(elem.Real, -elem.Imaginary);
           }
         return res;
@@ -241,11 +242,33 @@ namespace Librafka.MathLib {
     /// <summary>
     /// 行列要素があるかどうかを調べる．
     /// </summary>
-    /// <returns></returns>
+    /// <returns>行列が空かどうかを示す真理値．</returns>
     public bool IsEmpty() {
-      return _e == null;
+      return E == null;
     }
 
+    /// <summary>
+    /// 最大の絶対値の値．
+    /// </summary>
+    public double MaxAbsoluteValue {
+      get {
+        var res = double.NegativeInfinity;
+        for (var i = 0; i < N; i++) if (E[i].Magnitude > res) res = E[i].Magnitude;
+        return res;
+      }
+    }
+
+    /// <summary>
+    /// 最小の絶対値の値．
+    /// </summary>
+    public double MinAbsoluteValue {
+      get {
+        var res = double.PositiveInfinity;
+        for (var i = 0; i < N; i++) if (E[i].Magnitude < res) res = E[i].Magnitude;
+        return res;
+      }
+    }
+    
     /// <summary>
     /// 行列の形を指定して零行列を生成する．
     /// </summary>
