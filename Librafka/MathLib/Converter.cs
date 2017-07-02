@@ -80,6 +80,7 @@ namespace Librafka.MathLib {
             if (t.Buffer == "(") Mem.Push(t);
             if (t.Buffer == ")") {
               while (Mem.Peek().Buffer != "(") expr.Enqueue(Mem.Pop());
+              Mem.Pop();
               if (Mem.Count != 0 && Mem.Peek().Identity == TokenType.Fnc) expr.Enqueue(Mem.Pop());
             } break;
           case TokenType.Opr:

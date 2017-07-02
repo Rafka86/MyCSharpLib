@@ -37,7 +37,7 @@ namespace Librafka.MathLib {
           case TokenType.Num: ans.Push(double.Parse(t.Buffer)); break;
           case TokenType.Var:
             if (vars?.ContainsKey(t.Buffer) ?? false) ans.Push(vars[t.Buffer]);
-            else throw new ArgumentOutOfRangeException("vars", "計算に必要な変数の値の情報が不足しています．");
+            else throw new ArgumentOutOfRangeException(nameof(vars), "計算に必要な変数の値の情報が不足しています．");
             break;
           case TokenType.Opr:
             var p = ans.Pop();
