@@ -42,9 +42,21 @@
   <ItemGroup>
     <Compile Include="MathLib\Converter.cs" />
     <Compile Include="MathLib\Expression.cs" />
-    <Compile Include="MathLib\Matrix.cs" />
+    <Compile Include="MathLib\Matrix\Matrix44.cs" />
+    <Compile Include="MathLib\Matrix\Matrix22.cs" />
+    <Compile Include="MathLib\Matrix\Matrix33.cs" />
+    <Compile Include="MathLib\Matrix\MatrixBase.cs" />
+    <Compile Include="MathLib\Matrix\MatrixConstructors.cs" />
+    <Compile Include="MathLib\Matrix\MatrixFunctions.cs" />
+    <Compile Include="MathLib\Matrix\MatrixOperators.cs" />
+    <Compile Include="MathLib\Matrix\MatrixProperties.cs" />
     <Compile Include="MathLib\Token.cs" />
-    <Compile Include="MathLib\Vector.cs" />
+    <Compile Include="MathLib\Vector\VectorBase.cs" />
+    <Compile Include="MathLib\Vector\VectorConstructors.cs" />
+    <Compile Include="MathLib\Vector\VectorDirection.cs" />
+    <Compile Include="MathLib\Vector\VectorFunctions.cs" />
+    <Compile Include="MathLib\Vector\VectorOperators.cs" />
+    <Compile Include="MathLib\Vector\VectorProperties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
