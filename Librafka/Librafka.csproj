@@ -58,6 +58,7 @@
     <Compile Include="MathLib\Token.cs" />
     <Compile Include="MathLib\Utility\Gnuplot\LineType.cs" />
     <Compile Include="MathLib\Utility\Gnuplot\PlotStyle.cs" />
+    <Compile Include="MathLib\Utility\Gnuplot\PointType.cs" />
     <Compile Include="MathLib\Vector\Vector2.cs" />
     <Compile Include="MathLib\Vector\Vector3.cs" />
     <Compile Include="MathLib\Vector\Vector4.cs" />
