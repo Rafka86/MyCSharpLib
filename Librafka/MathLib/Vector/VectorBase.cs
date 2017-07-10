@@ -6,7 +6,7 @@ namespace Librafka.MathLib {
   /// N次元複素ベクトルを表すクラス．
   /// </summary>
   public partial class Vector {
-    internal readonly Complex[] E;
+    internal Complex[] E;
     internal VectorDirection Direction;
     
     /// <summary>

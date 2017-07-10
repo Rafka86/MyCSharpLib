@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 
 namespace Librafka.MathLib {
   public partial class Vector {
@@ -9,7 +10,8 @@ namespace Librafka.MathLib {
     public Vector(params Complex[] elements) {
       Direction = VectorDirection.Column;
       N = elements.Length;
-      E = elements;
+      E = new Complex[N];
+      Array.Copy(elements, E, N);
     }
 
     /// <summary>
@@ -20,7 +22,7 @@ namespace Librafka.MathLib {
     public Vector(VectorDirection dir, params Complex[] elements) {
       Direction = dir;
       N = elements.Length;
-      E = elements;
+      Array.Copy(elements, E, N);
     }
   }
 }

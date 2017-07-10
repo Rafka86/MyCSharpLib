@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Numerics;
 using static System.Math;
 
 namespace Librafka.MathLib {
@@ -31,6 +31,18 @@ namespace Librafka.MathLib {
       var res = 0.0;
       for (var i = 0; i < N; i++) res += Pow(E[i].Magnitude, p);
       return Pow(res, 1.0 / p);
+    }
+
+    /// <summary>
+    /// インスタンスに別のインスタンスの要素を結合する．
+    /// </summary>
+    /// <param name="v">結合したいベクトル．</param>
+    public Vector Concat(Vector v) {
+      var newE = new Complex[N + v.N];
+      for (var i = 0; i < N; i++) newE[i] = E[i];
+      for (var i = 0; i < v.N; i++) newE[N + i] = v.E[i];
+      E = newE;
+      return this;
     }
   }
 }

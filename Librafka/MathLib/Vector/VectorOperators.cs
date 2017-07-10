@@ -4,27 +4,31 @@ using System.Numerics;
 namespace Librafka.MathLib {  
   public partial class Vector {
     public static Vector operator -(Vector v) {
-      for (var i = 0; i < v.N; i++) v[i] *= -1;
-      return v;
+      var res = v.Clone;
+      for (var i = 0; i < res.N; i++) res[i] *= -1;
+      return res;
     }
     
     public static Vector operator +(Vector v1, Vector v2) {
       if (v1.Direction != v2.Direction) throw new ArgumentException("ベクトルの向きが異なります．");
       if (v1.N != v2.N) throw new ArgumentException("ベクトルの要素数が異なります．");
-      for (var i = 0; i < v1.N; i++) v1[i] += v2[i];
-      return v1;
+      var res = v1.Clone;
+      for (var i = 0; i < res.N; i++) res[i] += v2[i];
+      return res;
     }
     
     public static Vector operator -(Vector v1, Vector v2) {
       if (v1.Direction != v2.Direction) throw new ArgumentException("ベクトルの向きが異なります．");
       if (v1.N != v2.N) throw new ArgumentException("ベクトルの要素数が異なります．");
-      for (var i = 0; i < v1.N; i++) v1[i] -= v2[i];
-      return v1;
+      var res = v1.Clone;
+      for (var i = 0; i < res.N; i++) res[i] -= v2[i];
+      return res;
     }
     
     public static Vector operator *(Vector v, Complex k) {
-      for (var i = 0; i < v.N; i++) v[i] *= k;
-      return v;
+      var res = v.Clone;
+      for (var i = 0; i < res.N; i++) res[i] *= k;
+      return res;
     }
     
     public static Vector operator *(Complex k, Vector v) {
@@ -74,11 +78,12 @@ namespace Librafka.MathLib {
     }
     
     public static Vector operator /(Vector v, Complex k) {
-      for (var i = 0; i < v.N; i++) v[i] /= k;
-      return v;
+      var res = v.Clone;
+      for (var i = 0; i < res.N; i++) res[i] /= k;
+      return res;
     }
 
-    public static implicit operator Vector(Matrix m) {
+    public static explicit operator Vector(Matrix m) {
       if (m.ColumnLength != 1 && m.RowLength != 1) throw new ArgumentException("指定された行列はベクトルに変換できません．");
       return new Vector(m.E) {Direction = m.ColumnLength == 1 ? VectorDirection.Column : VectorDirection.Row};
     }

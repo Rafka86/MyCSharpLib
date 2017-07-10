@@ -40,6 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MathLib\Algorithm\OdeSolver\Ode.cs" />
+    <Compile Include="MathLib\Algorithm\OdeSolver\OdeSolverBase.cs" />
+    <Compile Include="MathLib\Algorithm\OdeSolver\OdeSolverEuler.cs" />
+    <Compile Include="MathLib\Algorithm\OdeSolver\OdeSolverRK2.cs" />
+    <Compile Include="MathLib\Algorithm\OdeSolver\OdeSolverRK4.cs" />
     <Compile Include="MathLib\Converter.cs" />
     <Compile Include="MathLib\Expression.cs" />
     <Compile Include="MathLib\Matrix\Matrix44.cs" />

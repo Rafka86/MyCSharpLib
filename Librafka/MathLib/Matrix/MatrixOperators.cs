@@ -59,7 +59,7 @@ namespace Librafka.MathLib {
       return res;
     }
 
-    public static implicit operator Matrix(Vector v) {
+    public static explicit operator Matrix(Vector v) {
       return new Matrix(v.E,
                         v.Direction == VectorDirection.Column ? v.N : 1,
                         v.Direction == VectorDirection.Column ? 1 : v.N);
