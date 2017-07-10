@@ -56,6 +56,9 @@
     <Compile Include="MathLib\Matrix\MatrixOperators.cs" />
     <Compile Include="MathLib\Matrix\MatrixProperties.cs" />
     <Compile Include="MathLib\Token.cs" />
+    <Compile Include="MathLib\Vector\Vector2.cs" />
+    <Compile Include="MathLib\Vector\Vector3.cs" />
+    <Compile Include="MathLib\Vector\Vector4.cs" />
     <Compile Include="MathLib\Vector\VectorBase.cs" />
     <Compile Include="MathLib\Vector\VectorConstructors.cs" />
     <Compile Include="MathLib\Vector\VectorDirection.cs" />
