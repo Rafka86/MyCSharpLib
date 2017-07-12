@@ -1,11 +1,13 @@
 ﻿namespace Librafka.MathLib.Utility {
   public partial struct PlotStyle {
-    public PlotStyle(LineType lt) {
+    public PlotStyle(LineType lt) : this() {
       LineType = lt;
-      PlotColor = PlotColor.Red;
+    }
+
+    public PlotStyle(PlotColor pc) {
+      LineType = LineType.Solid;
+      PlotColor = pc;
       LineWidth = 1;
-      PointType = PointType.FilledCircle;
-      PointSize = 1;
     }
   }
 }
