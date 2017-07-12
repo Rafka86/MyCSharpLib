@@ -56,9 +56,11 @@
     <Compile Include="MathLib\Matrix\MatrixOperators.cs" />
     <Compile Include="MathLib\Matrix\MatrixProperties.cs" />
     <Compile Include="MathLib\Token.cs" />
-    <Compile Include="MathLib\Utility\Gnuplot\LineType.cs" />
-    <Compile Include="MathLib\Utility\Gnuplot\PlotStyle.cs" />
-    <Compile Include="MathLib\Utility\Gnuplot\PointType.cs" />
+    <Compile Include="MathLib\Utility\Gnuplot\PlotStyle\LineType.cs" />
+    <Compile Include="MathLib\Utility\Gnuplot\PlotStyle\PlotColor.cs" />
+    <Compile Include="MathLib\Utility\Gnuplot\PlotStyle\PlotStyleBase.cs" />
+    <Compile Include="MathLib\Utility\Gnuplot\PlotStyle\PlotStyleConstructor.cs" />
+    <Compile Include="MathLib\Utility\Gnuplot\PlotStyle\PointType.cs" />
     <Compile Include="MathLib\Vector\Vector2.cs" />
     <Compile Include="MathLib\Vector\Vector3.cs" />
     <Compile Include="MathLib\Vector\Vector4.cs" />
