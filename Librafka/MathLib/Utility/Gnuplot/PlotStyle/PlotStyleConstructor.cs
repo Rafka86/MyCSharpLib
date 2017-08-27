@@ -32,7 +32,11 @@
     public PlotStyle(PlotColor pc, uint lw) : this(LineType.Solid, pc, lw, PointType.Dot, 1) {
     }
 
-    public PlotStyle(){}
+    /// <summary>
+    /// 線の種類と色を指定するコンストラクタ．
+    /// </summary>
+    public PlotStyle(LineType lt, PlotColor pc) : this(lt, pc, 1, PointType.Dot, 1) {
+    }
     
     /// <summary>
     /// プロットのスタイルを完全指定するコンストラクタ．
