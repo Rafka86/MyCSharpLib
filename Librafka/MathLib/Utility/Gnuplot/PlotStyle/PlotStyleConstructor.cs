@@ -37,8 +37,31 @@
     /// </summary>
     public PlotStyle(LineType lt, PlotColor pc) : this(lt, pc, 1, PointType.Dot, 1) {
     }
-    
+
     /// <summary>
+    /// 線の種類と線の幅を指定するコンストラクタ
+    /// </summary>
+    public PlotStyle(LineType lt, uint lw) : this(lt, PlotColor.Red, lw, PointType.Dot, 1) {
+    }
+
+    /// <summary>
+    /// 線の種類と点の種類を指定するコンストラクタ
+    /// </summary>
+    public PlotStyle(LineType lt, PointType pt) : this(lt, PlotColor.Red, 1, pt, 1) {
+    }
+
+    /// <summary>
+    /// 線の種類と点の種類と点の大きさを指定するコンストラクタ
+    /// </summary>
+    public PlotStyle(LineType lt, PointType pt, uint ps) : this(lt, PlotColor.Red, 1, pt, ps) {
+    }
+
+    /// <summary>
+    /// 線の種類とプロットの色と線の幅を指定するコンストラクタ
+    /// </summary>
+    public PlotStyle(LineType lt, PlotColor pc, uint lw) : this(lt, pc, lw, PointType.Dot, 1) {
+    }
+
     /// プロットのスタイルを完全指定するコンストラクタ．
     /// </summary>
     /// <param name="lt">線の種類．</param>
