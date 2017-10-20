@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Numerics;
 
 namespace Librafka.MathLib {
   public partial class Vector {
@@ -7,10 +6,10 @@ namespace Librafka.MathLib {
     /// 可変長の要素から列ベクトルを生成する．
     /// </summary>
     /// <param name="elements">ベクトルの要素．</param>
-    public Vector(params Complex[] elements) {
+    public Vector(params double[] elements) {
       Direction = VectorDirection.Column;
       N = elements.Length;
-      E = new Complex[N];
+      E = new double[N];
       Array.Copy(elements, E, N);
     }
 
@@ -19,7 +18,7 @@ namespace Librafka.MathLib {
     /// </summary>
     /// <param name="elements">ベクトルの要素．</param>
     /// <param name="dir">ベクトルの向き．</param>
-    public Vector(VectorDirection dir, params Complex[] elements) {
+    public Vector(VectorDirection dir, params double[] elements) {
       Direction = dir;
       N = elements.Length;
       Array.Copy(elements, E, N);

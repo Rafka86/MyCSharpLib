@@ -1,27 +1,26 @@
-﻿using System.Numerics;
-using System.Text;
+﻿using System.Text;
 
 namespace Librafka.MathLib {
   /// <summary>
   /// 任意の形を取ることのできる複素行列のクラス．
   /// </summary>
   public partial class Matrix {
-    internal readonly Complex[] E;
+    internal readonly double[] E;
 
     /// <summary>
     /// 行の長さを取得する．
     /// </summary>
-    public int RowLength { get; protected set; }
+    public int RowLength { get; }
 
     /// <summary>
     /// 列の長さを取得する．
     /// </summary>
-    public int ColumnLength { get; protected set; }
+    public int ColumnLength { get; }
 
     /// <summary>
     /// 行列の要素数を取得する．
     /// </summary>
-    public int N { get; protected set; }
+    public int N { get; }
     
     /// <summary>
     /// 行列の形状を指定して行列クラスのインスタンスを作成する．
@@ -33,8 +32,8 @@ namespace Librafka.MathLib {
       RowLength = r;
       ColumnLength = c;
       N = r * c;
-      E = new Complex[N];
-      for (var i = 0; i < E.Length; i++) E[i] = Complex.Zero;
+      E = new double[N];
+      for (var i = 0; i < E.Length; i++) E[i] = 0.0;
     }
 
     /// <summary>

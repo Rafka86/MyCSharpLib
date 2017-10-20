@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Numerics;
 
 using static System.Math;
 
@@ -13,11 +12,11 @@ namespace Librafka.MathLib {
     public double this[int i] {
       get {
         if (i < 0 || N <= i) throw new ArgumentOutOfRangeException(nameof(i));
-        return Elements[i / Count][i % Count];
+        return E[i];
       }
       set {
         if (i < 0 || N <= i) throw new ArgumentOutOfRangeException(nameof(i));
-        Elements[i / Count][i % Count] = value;
+        E[i] = value;
       }
     }
     
@@ -34,27 +33,12 @@ namespace Librafka.MathLib {
     public Vector Transpose => new Vector(Direction == VectorDirection.Column ? VectorDirection.Row : VectorDirection.Column, E);
 
     /// <summary>
-    /// それぞれの共役要素からなり，方向が異なるベクトルを作成する．
-    /// </summary>
-    /// <value>共役要素からなる異なる方向の新しいインスタンス．</value>
-    public Vector Transjugate {
-      get {
-        if (IsEmpty()) throw new ArgumentNullException(nameof(Vector), "ベクトルに要素がありません．");
-        var res = new Vector(N) {
-          Direction = Direction == VectorDirection.Column ? VectorDirection.Row : VectorDirection.Column
-        };
-        for (var i = 0; i < res.N; i++) res[i] = Complex.Conjugate(E[i]);
-        return res;
-      }
-    }
-    
-    /// <summary>
     /// 最大の絶対値の値．
     /// </summary>
     public double MaxAbsoluteValue {
       get {
         var res = double.NegativeInfinity;
-        for (var i = 0; i < N; i++) if (E[i].Magnitude > res) res = E[i].Magnitude;
+        for (var i = 0; i < N; i++) if (Abs(E[i]) > res) res = Abs(E[i]);
         return res;
       }
     }
@@ -65,7 +49,7 @@ namespace Librafka.MathLib {
     public double MinAbsoluteValue {
       get {
         var res = double.PositiveInfinity;
-        for (var i = 0; i < N; i++) if (E[i].Magnitude < res) res = E[i].Magnitude;
+        for (var i = 0; i < N; i++) if (Abs(E[i]) < res) res = Abs(E[i]);
         return res;
       }
     }
@@ -76,7 +60,7 @@ namespace Librafka.MathLib {
     public double ManhattanDistance {
       get {
         var res = 0.0;
-        for (var i = 0; i < N; i++) res += E[i].Magnitude;
+        for (var i = 0; i < N; i++) res += Abs(E[i]);
         return res;
       }
     }
@@ -87,7 +71,7 @@ namespace Librafka.MathLib {
     public double EuclidDistance {
       get {
         var res = 0.0;
-        for (var i = 0; i < N; i++) res += E[i].Magnitude * E[i].Magnitude;
+        for (var i = 0; i < N; i++) res += E[i] * E[i];
         return Sqrt(res);
       }
     }

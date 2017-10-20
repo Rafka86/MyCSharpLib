@@ -1,18 +1,17 @@
-﻿using System.Numerics;
-using System.Text;
+﻿using System.Text;
 
 namespace Librafka.MathLib {
   /// <summary>
   /// N次元複素ベクトルを表すクラス．
   /// </summary>
   public partial class Vector {
-    internal Complex[] E;
+    internal double[] E;
     internal VectorDirection Direction;
     
     /// <summary>
     /// ベクトルの要素数を取得する．
     /// </summary>
-    public int N { get; protected set; }
+    public int N { get; }
 
     /// <summary>
     /// 要素数を指定して列ベクトルのインスタンスを作成する．
@@ -22,8 +21,8 @@ namespace Librafka.MathLib {
     public Vector(int size) {
       Direction = VectorDirection.Column;
       N = size;
-      E = new Complex[size];
-      for (var i = 0; i < size; i++) E[i] = Complex.Zero;
+      E = new double[size];
+      for (var i = 0; i < size; i++) E[i] = 0.0;
     }
     
     /// <summary>

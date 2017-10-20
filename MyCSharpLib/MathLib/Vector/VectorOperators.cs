@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Numerics;
 
 namespace Librafka.MathLib {  
   public partial class Vector {
@@ -25,22 +24,20 @@ namespace Librafka.MathLib {
       return res;
     }
     
-    public static Vector operator *(Vector v, Complex k) {
+    public static Vector operator *(Vector v, double k) {
       var res = v.Clone;
       for (var i = 0; i < res.N; i++) res[i] *= k;
       return res;
     }
     
-    public static Vector operator *(Complex k, Vector v) {
-      return v * k;
-    }
-    
+    public static Vector operator *(double k, Vector v) => v * k;
+
     public static dynamic operator *(Vector v1, Vector v2) {
       if (v1.Direction == v2.Direction) throw new ArgumentException("ベクトルの方向が同じです．");
       if (v1.N != v2.N) throw new ArgumentException("ベクトルの長さ異なります．");
       
       if (v1.Direction == VectorDirection.Row && v2.Direction == VectorDirection.Column) {
-        var res = Complex.Zero;
+        var res = 0.0;
         for (var i = 0; i < v1.N; i++) res += v1[i] * v2[i];
         return res;
       }
@@ -58,7 +55,7 @@ namespace Librafka.MathLib {
 
       var res = new Vector(m.ColumnLength);
       for (var i = 0; i < m.ColumnLength; i++) {
-        var tmp = Complex.Zero;
+        var tmp = 0.0;
         for (var j = 0; j < m.RowLength; j++) tmp += v[j] * m[j, i];
         res[i] = tmp;
       }
@@ -70,14 +67,14 @@ namespace Librafka.MathLib {
 
       var res = new Vector(m.RowLength);
       for (var i = 0; i < m.RowLength; i++) {
-        var tmp = Complex.Zero;
+        var tmp = 0.0;
         for (var j = 0; j < m.ColumnLength; j++) tmp +=  m[i, j] * v[j];
         res[i] = tmp;
       }
       return res;
     }
     
-    public static Vector operator /(Vector v, Complex k) {
+    public static Vector operator /(Vector v, double k) {
       var res = v.Clone;
       for (var i = 0; i < res.N; i++) res[i] /= k;
       return res;

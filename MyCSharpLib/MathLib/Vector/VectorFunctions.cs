@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Numerics;
 using static System.Math;
 
 namespace Librafka.MathLib {
@@ -8,10 +7,8 @@ namespace Librafka.MathLib {
     /// ベクトル要素があるかどうかを調べる．
     /// </summary>
     /// <returns>ベクトルが空かどうかを示す真理値．</returns>
-    public bool IsEmpty() {
-      return E == null;
-    }
-    
+    public bool IsEmpty() => E == null;
+
     /// <summary>
     /// p-ノルムを計算する．
     /// </summary>
@@ -29,7 +26,7 @@ namespace Librafka.MathLib {
       if (double.IsPositiveInfinity(p)) return MaxAbsoluteValue;
 
       var res = 0.0;
-      for (var i = 0; i < N; i++) res += Pow(E[i].Magnitude, p);
+      for (var i = 0; i < N; i++) res += Pow(Abs(E[i]), p);
       return Pow(res, 1.0 / p);
     }
 
@@ -38,7 +35,7 @@ namespace Librafka.MathLib {
     /// </summary>
     /// <param name="v">結合したいベクトル．</param>
     public Vector Concat(Vector v) {
-      var newE = new Complex[N + v.N];
+      var newE = new double[N + v.N];
       for (var i = 0; i < N; i++) newE[i] = E[i];
       for (var i = 0; i < v.N; i++) newE[N + i] = v.E[i];
       E = newE;

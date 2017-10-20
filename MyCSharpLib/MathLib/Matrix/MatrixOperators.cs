@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Numerics;
 
 namespace Librafka.MathLib {
   public partial class Matrix {
@@ -29,7 +28,7 @@ namespace Librafka.MathLib {
       return res;
     }
     
-    public static Matrix operator *(Complex k, Matrix m) {
+    public static Matrix operator *(double k, Matrix m) {
       var res = m.Clone;
       for (var i = 0; i < res.RowLength; i++)
         for (var j = 0; j < res.ColumnLength; j++)
@@ -37,10 +36,8 @@ namespace Librafka.MathLib {
       return res;
     }
     
-    public static Matrix operator *(Matrix m, Complex k) {
-      return k * m;
-    }
-    
+    public static Matrix operator *(Matrix m, double k) => k * m;
+
     public static Matrix operator *(Matrix m1, Matrix m2) {
       if (m1.ColumnLength != m2.RowLength) throw new ArgumentException("計算対象の行列の形が不適切です．");
       var res = new Matrix(m1.RowLength, m2.ColumnLength);
@@ -51,7 +48,7 @@ namespace Librafka.MathLib {
       return res;
     }
     
-    public static Matrix operator /(Matrix m, Complex k) {
+    public static Matrix operator /(Matrix m, double k) {
       var res = new Matrix(m.RowLength, m.ColumnLength);
       for (var i = 0; i < m.RowLength; i++)
         for (var j = 0; j < m.ColumnLength; j++)

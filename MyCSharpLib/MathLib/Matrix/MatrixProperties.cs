@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Numerics;
+using static System.Math;
 
 namespace Librafka.MathLib {
   public partial class Matrix {
@@ -8,7 +8,7 @@ namespace Librafka.MathLib {
     /// </summary>
     /// <param name="i">行番号．</param>
     /// <param name="j">列番号．</param>
-    public Complex this[int i, int j] {
+    public double this[int i, int j] {
       get {
         if (0 <= i && i <= RowLength && 0 <= j && j <= ColumnLength) return E[i * ColumnLength + j];
         throw new ArgumentException("領域外参照です．");
@@ -40,28 +40,12 @@ namespace Librafka.MathLib {
     }
 
     /// <summary>
-    /// インスタンスの共役転置行列を取得する．
-    /// </summary>
-    /// <value>The hermitian.</value>
-    public Matrix Transjugate {
-      get {
-        // Analysis disable once NotResolvedInText
-        if (IsEmpty()) throw new ArgumentNullException(nameof(Matrix), "行列に要素がありません．");
-        var res = new Matrix(ColumnLength, RowLength);
-        for (var i = 0; i < RowLength; i++)
-          for (var j = 0; j < ColumnLength; j++)
-            res[j, i] = Complex.Conjugate(E[i * ColumnLength + j]);
-        return res;
-      }
-    }
-    
-    /// <summary>
     /// 最大の絶対値の値．
     /// </summary>
     public double MaxAbsoluteValue {
       get {
         var res = double.NegativeInfinity;
-        for (var i = 0; i < N; i++) if (E[i].Magnitude > res) res = E[i].Magnitude;
+        for (var i = 0; i < N; i++) if (Abs(E[i]) > res) res = Abs(E[i]);
         return res;
       }
     }
@@ -72,7 +56,7 @@ namespace Librafka.MathLib {
     public double MinAbsoluteValue {
       get {
         var res = double.PositiveInfinity;
-        for (var i = 0; i < N; i++) if (E[i].Magnitude < res) res = E[i].Magnitude;
+        for (var i = 0; i < N; i++) if (Abs(E[i]) < res) res = Abs(E[i]);
         return res;
       }
     }
