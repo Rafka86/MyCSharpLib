@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.0.0
 MinimumVisualStudioVersion = 10.0.0.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Librafka", "Librafka/Librafka.csproj", "{8F1A72CD-FB99-424E-9C24-CF76F0DBF027}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCSharpLib", "MyCSharpLib\MyCSharpLib.csproj", "{5304B0F9-95D1-44E2-9B85-4850485383FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibrafkaTester", "LibrafkaTester\LibrafkaTester.csproj", "{F63DCD06-B109-4678-8582-1B0E0B359A77}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCSharpLibTest", "MyCSharpLibTest\MyCSharpLibTest.csproj", "{FFC0D5C1-D93F-494E-A2FC-3D3B62A74F95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8F1A72CD-FB99-424E-9C24-CF76F0DBF027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8F1A72CD-FB99-424E-9C24-CF76F0DBF027}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8F1A72CD-FB99-424E-9C24-CF76F0DBF027}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8F1A72CD-FB99-424E-9C24-CF76F0DBF027}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F63DCD06-B109-4678-8582-1B0E0B359A77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F63DCD06-B109-4678-8582-1B0E0B359A77}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F63DCD06-B109-4678-8582-1B0E0B359A77}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F63DCD06-B109-4678-8582-1B0E0B359A77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5304B0F9-95D1-44E2-9B85-4850485383FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5304B0F9-95D1-44E2-9B85-4850485383FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5304B0F9-95D1-44E2-9B85-4850485383FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5304B0F9-95D1-44E2-9B85-4850485383FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFC0D5C1-D93F-494E-A2FC-3D3B62A74F95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFC0D5C1-D93F-494E-A2FC-3D3B62A74F95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFC0D5C1-D93F-494E-A2FC-3D3B62A74F95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFC0D5C1-D93F-494E-A2FC-3D3B62A74F95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

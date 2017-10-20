@@ -10,14 +10,14 @@ namespace Librafka.MathLib {
     /// </summary>
     /// <param name="i">対象にしたい要素番号．</param>
     /// <exception cref="ArgumentOutOfRangeException">領域外参照時に投げられる．</exception>
-    public Complex this[int i] {
+    public double this[int i] {
       get {
         if (i < 0 || N <= i) throw new ArgumentOutOfRangeException(nameof(i));
-        return E[i];
+        return Elements[i / Count][i % Count];
       }
       set {
         if (i < 0 || N <= i) throw new ArgumentOutOfRangeException(nameof(i));
-        E[i] = value;
+        Elements[i / Count][i % Count] = value;
       }
     }
     
