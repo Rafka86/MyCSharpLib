@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 namespace Librafka.MathLib.Algorithm {
-  public static partial class OdeSolver {
+  public partial class OdeSolver {
     private const double Div6 = 1.0 / 6.0;
     
     /// <summary>
@@ -11,7 +11,7 @@ namespace Librafka.MathLib.Algorithm {
     /// <param name="time">時間</param>
     /// <param name="x">その時間での状態．</param>
     /// <returns>次の時間での状態．</returns>
-    public static Vector Rk4Step(Ode model, double time, Vector x) {
+    public Vector Rk4Step(Ode model, double time, Vector x) {
       var k1 = model.Feval(time, x);
       var k2 = model.Feval(time + TimeStep * 0.5, x + k1 * TimeStep * 0.5);
       var k3 = model.Feval(time + TimeStep * 0.5, x + k2 * TimeStep * 0.5);
@@ -24,7 +24,7 @@ namespace Librafka.MathLib.Algorithm {
     /// </summary>
     /// <param name="model">常微分方程式で記述される数理モデル．</param>
     /// <returns>時系列に沿って格納された状態のリスト．</returns>
-    public static List<Vector> Rk4Method(Ode model) {
+    public List<Vector> Rk4Method(Ode model) {
       var x = model.InitialState.Clone;
       var t = model.StartTime;
       var res = new List<Vector> {new Vector(t).Concat(x)};
